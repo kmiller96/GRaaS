@@ -1,0 +1,15 @@
+core:
+    Core functionality required to get the app to work.
+    [ ] Write Terrafrom to deploy solution into AWS.
+    [ ] Build out the functionality to update the goals using the Makefile.
+    [ ] Build cron-trigger lambda.
+    [ ] Build SMS messager lambda.
+
+features:
+    Bonus functionality which enhances the final product but is non-essential.
+
+bugs:
+    Any identified bugs that need to be fixed.
+
+other:
+    Anything else that doesn't fit into the above categories.

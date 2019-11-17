@@ -1,0 +1,8 @@
+## Terraform ##
+.terrafrom/
+.tfstate
+.tfstate.*
+
+## Python ##
+.pytest_cache
+__pycache__/
