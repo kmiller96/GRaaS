@@ -1,5 +1,16 @@
 # GRaaS - Goal Reminder as a Service
 
+## Introduction
+The solution architecture diagram can be found at `docs/diagram.png`. This is
+a programmatically generated diagram using the awesome 
+[diagrams](https://github.com/mingrammer/diagrams) package by mingrammer. If you
+need to regenerate the diagram for any particular reason you can run the 
+following command:
+
+```bash
+make diagram
+```
+
 ## Installation
 The following dependencies are required in your local environment:
 
@@ -18,7 +29,7 @@ make init
 This will install a new python environment called `grass` and initialise 
 Terraform in the `infrastructure/` directory.
 
-**NOTE**: You must run `conda activate grass` before continuing! 
+**NOTE**: You must run `conda activate graas` before continuing! 
 
 
 ## Configuration

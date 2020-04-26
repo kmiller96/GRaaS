@@ -7,7 +7,7 @@ core:
 
 features:
     Bonus functionality which enhances the final product but is non-essential.
-    [ ] Auto-generated solution architecture diagram.
+    [X] Auto-generated solution architecture diagram. @done(20-04-26 17:11)
 
 bugs:
     Any identified bugs that need to be fixed.
