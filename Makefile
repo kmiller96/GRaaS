@@ -1,14 +1,16 @@
 init:
-	conda env update --file environment.yaml --prune
+	@conda env create --file environment.yaml --name graas || \
+		echo "Environment 'graas' already exists. Skipping installation."
 	terraform init infrastructure/
 .PHONY: init
 
 format:
+	terraform fmt -recursive
 	black .scripts/ src/ tests/
 .PHONY: format
 
 export:
-	conda env export --no-builds > environment.yaml
+	conda env export --no-builds | grep -v "prefix" > environment.yaml
 .PHONY: export
 
 diagram:
