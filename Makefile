@@ -3,6 +3,10 @@ init:
 	terraform init infrastructure/
 .PHONY: init
 
+format:
+	black .scripts/ src/ tests/
+.PHONY: format
+
 export:
 	conda env export --no-builds > environment.yaml
 .PHONY: export
