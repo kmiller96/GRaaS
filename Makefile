@@ -3,6 +3,14 @@ init:
 	terraform init infrastructure/
 .PHONY: init
 
+export:
+	conda env export --no-builds > environment.yaml
+.PHONY: export
+
+diagram:
+	python .scripts/build_solution_arch_diagram.py
+.PHONY: diagram
+
 update:
 	@echo "This functionality hasn't been written yet."
 .PHONY: update 
