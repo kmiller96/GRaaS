@@ -5,6 +5,10 @@ init:
 	mkdir -p $(BUILD_DIRECTORY)
 	terraform init src/infrastructure/
 
+format:
+	black src/ tests/
+	terraform fmt -recursive src/infrastructure 
+
 build:
 	# Compiles all of the source code into artifacts for AWS.
 	echo "This utility hasn't been written yet."
