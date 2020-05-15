@@ -1,3 +1,26 @@
+#############################
+## Weekly Scheduler Lambda ##
+#############################
+
+
+module "weekly_scheduler_lambda" {
+  source = "./modules/lambda"
+
+  name                = "${var.resource_prefix}-weekly-scheduler"
+  lambda_package_path = "${var.build_directory}/lambdas/weekly_scheduler.zip"
+
+  environment_variables = {
+    TEMPLATE_URI = "s3://${var.goal_bucket_name}/graas/templates/weekly_update.template"
+    MOBILE_NUMBER = var.mobile_number
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "weekly_scheduler_lambda_invoke_sfn" {
+  role       = module.weekly_scheduler_lambda.role_name
+  policy_arn = aws_iam_policy.invoke_step_function.arn
+}
+
+
 #####################
 ## Messager Lambda ##
 #####################
