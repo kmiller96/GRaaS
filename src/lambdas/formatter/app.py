@@ -46,10 +46,10 @@ def lambda_handler(event, context):
 
 
 def load_template(uri):
-    bucket, key = re.match(r's3:\/\/(.+?)/(.+)', uri).groups()
+    bucket, key = re.match(r"s3:\/\/(.+?)/(.+)", uri).groups()
 
     obj = s3.Object(bucket_name=bucket, key=key)
-    template_string = obj.get()['Body'].read().decode('utf-8')
+    template_string = obj.get()["Body"].read().decode("utf-8")
     template = Template(template_string)
 
     return template
