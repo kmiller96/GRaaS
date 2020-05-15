@@ -7,5 +7,5 @@ variable "memory_size" { default = 128 }
 
 variable "environment_variables" {
   type    = map
-  default = { "_" = "_" } # Required to prevent error being thrown if not defined.
+  default = { "NULL" = "NULL" } # Required to prevent error being thrown if not defined.
 }
