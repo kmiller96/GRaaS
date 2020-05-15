@@ -1,0 +1,41 @@
+{
+    "Comment": "Sends a reminder of your current goals via the specified channel.",
+    "StartAt": "FetchGoal",
+    "States": {
+        "FetchGoal": {
+            "Type": "Task",
+            "Resource": "${fetcher_lambda_arn}",
+            "Parameters": {
+                "goal_type.$": "$.Input.GoalType"
+            },
+            "ResultPath": "$.FetcherOutput",
+            "Next": "FormatMessage"
+        },
+        "FormatMessage": {
+            "Type": "Task",
+            "Resource": "${formatter_lambda_arn}",
+            "Parameters": {
+                "template_s3_uri.$": "$.Input.TemplateURI",
+                "parameters": {
+                    "goal_type.$": "$.Input.GoalType",
+                    "goals.$": "$.FetcherOutput.goals"
+                }
+            },
+            "ResultPath": "$.FormatterOutput",
+            "Next": "SendNotification"
+        },
+        "SendNotification": {
+            "Type": "Task",
+            "Resource": "${messager_lambda_arn}",
+            "Parameters": {
+                "address.$": "$.Input.NotificationAddress",
+                "message.$": "$.FormatterOutput.message"
+            },
+            "ResultPath": "$.MessagerOutput",
+            "Next": "End"
+        },
+        "End": {
+            "Type": "Succeed"
+        }
+    }
+}

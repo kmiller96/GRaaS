@@ -4,12 +4,13 @@ This lambda can only be invoked directly with the following, custom event
 structure:
 
 {
-    "number": str,
+    "address": str,
     "message": str
 }
 
-The number format should be in international format. For an Australian number
-this would look like "+61412345678"
+where the "address" key will, in this case, be the mobile number. The number 
+format should be in international format. For an Australian number this would 
+look like "+61412345678".
 """
 
 import os
@@ -20,11 +21,11 @@ sns = boto3.client("sns")
 
 
 def lambda_handler(event, context):
-    number = event["number"]
+    address = event["address"]
     message = event["message"]
     sender_name = os.environ["SMS_SENDER_NAME"]
 
-    response = send_sms_message(sender=sender_name, number=number, message=message)
+    response = send_sms_message(sender=sender_name, number=address, message=message)
 
     return response
 

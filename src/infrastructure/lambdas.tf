@@ -1,48 +1,3 @@
-provider "aws" {
-  region                  = "ap-southeast-2"
-  shared_credentials_file = "~/.aws/credentials"
-  profile                 = "default"
-}
-
-resource "aws_iam_policy" "s3_god_mode" {
-  name = "${var.resource_prefix}-s3-god-mode" # TODO: tighten up this policy.
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_policy" "sns_publish" {
-  name = "${var.resource_prefix}-sns-publish"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "SNS:Publish"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
-
-
 #####################
 ## Messager Lambda ##
 #####################
@@ -97,7 +52,7 @@ module "fetcher_lambda" {
 
   name                = "${var.resource_prefix}-fetcher"
   lambda_package_path = "${var.build_directory}/lambdas/fetcher.zip"
-  
+
   environment_variables = {
     GOAL_BUCKET = aws_s3_bucket.goal_storage.id
   }
