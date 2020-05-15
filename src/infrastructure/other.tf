@@ -13,7 +13,7 @@ resource "aws_iam_policy" "invoke_step_function" {
   "Statement": [
     {
       "Action": [
-        "stepfunction:*"
+        "states:*"
       ],
       "Effect": "Allow",
       "Resource": "*"

@@ -33,3 +33,8 @@ resource "aws_lambda_function" "this" {
     variables = var.environment_variables
   }
 }
+
+resource "aws_iam_role_policy_attachment" "basic_execution_role" {
+  role       = aws_iam_role.this.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}

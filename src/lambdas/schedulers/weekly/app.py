@@ -8,12 +8,12 @@ import os
 import logging
 import json
 
-import boto3 
+import boto3
 
 LOGGER = logging.getLogger()
 LOGGER.setLevel(os.environ.get("LOGGING_LEVEL", logging.CRITICAL))
 
-sfn = boto3.client('stepfunctions')
+sfn = boto3.client("stepfunctions")
 
 
 def lambda_handler(event, context):
@@ -21,14 +21,13 @@ def lambda_handler(event, context):
         "Input": {
             "GoalType": "monthly",
             "TemplateURI": os.environ["TEMPLATE_URI"],
-            "NotificationAddress": os.environ["MOBILE_NUMBER"]
+            "NotificationAddress": os.environ["MOBILE_NUMBER"],
         }
     }
     LOGGER.debug(f"Input to Step Function: {parameters}")
 
     response = sfn.start_execution(
-        stateMachineArn = os.environ["STEP_FUNCTION_ARN"],
-        input = json.dumps(parameters)
+        stateMachineArn=os.environ["STEP_FUNCTION_ARN"], input=json.dumps(parameters)
     )
     LOGGER.debug(f"Execution ARN: {response['executionArn']}")
     return

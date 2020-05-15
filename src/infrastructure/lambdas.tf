@@ -10,14 +10,34 @@ module "weekly_scheduler_lambda" {
   lambda_package_path = "${var.build_directory}/lambdas/weekly_scheduler.zip"
 
   environment_variables = {
-    TEMPLATE_URI = "s3://${var.goal_bucket_name}/graas/templates/weekly_update.template"
-    MOBILE_NUMBER = var.mobile_number
+    STEP_FUNCTION_ARN = aws_sfn_state_machine.sfn.id
+    TEMPLATE_URI      = "s3://${var.goal_bucket_name}/graas/templates/weekly_update.template"
+    MOBILE_NUMBER     = var.mobile_number
   }
 }
 
 resource "aws_iam_role_policy_attachment" "weekly_scheduler_lambda_invoke_sfn" {
   role       = module.weekly_scheduler_lambda.role_name
   policy_arn = aws_iam_policy.invoke_step_function.arn
+}
+
+resource "aws_cloudwatch_event_rule" "weekly_cron" {
+    name = "${var.resource_prefix}-weekly-scheduler-cron"
+    description = "Fires every Monday morning at 8:45am"
+    schedule_expression = "cron(45 22 ? * SUN *)"
+}
+
+resource "aws_cloudwatch_event_target" "weekly_cron" {
+    rule = aws_cloudwatch_event_rule.weekly_cron.name
+    arn = module.weekly_scheduler_lambda.lambda_arn
+}
+
+resource "aws_lambda_permission" "cloudwatch_invoke_lambda" {
+    statement_id = "AllowExecutionFromCloudWatch"
+    action = "lambda:InvokeFunction"
+    function_name = module.weekly_scheduler_lambda.lambda_name
+    principal = "events.amazonaws.com"
+    source_arn = aws_cloudwatch_event_rule.weekly_cron.arn
 }
 
 
