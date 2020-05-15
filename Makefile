@@ -25,6 +25,9 @@ build:
 infrastructure:
 	# Deploys the infrastructure in AWS.
 	terraform apply $(TERRAFORM_DIRECTORY)
+destroy:
+	# Tearsdown the infrastructure.
+	terraform destroy $(TERRAFORM_DIRECTORY)
 
 tests:
 	# Runs the unit testing suite.
