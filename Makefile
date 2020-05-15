@@ -1,6 +1,7 @@
 .EXPORT_ALL_VARIABLES:
 
-TERRAFORM_DIRECTORY = src/infrastructure/
+TERRAFORM_DIRECTORY = src/infrastructure
+LAMBDA_DIRECTORY = src/lambdas
 BUILD_DIRECTORY = .build
 
 TF_VAR_build_directory = $(BUILD_DIRECTORY)
@@ -13,15 +14,17 @@ init:
 
 format:
 	black src/ tests/
-	terraform fmt -recursive src/infrastructure/
+	terraform fmt -recursive $(TERRAFORM_DIRECTORY)
 
 build:
 	# Compiles all of the source code into artifacts for AWS.
-	echo "This utility hasn't been written yet."
+	## TODO: Convert this from being a hardcoded process to an abstract utility.
+	cp $(LAMBDA_DIRECTORY)/messager/ -r .build/tmp/
+	cd .build/tmp/ && pip install -r requirements.txt -t . && zip -r ../lambdas/messager.zip .
 
 infrastructure:
 	# Deploys the infrastructure in AWS.
-	terraform apply src/infrastructure/
+	terraform apply $(TERRAFORM_DIRECTORY)
 
 tests:
 	# Runs the unit testing suite.
