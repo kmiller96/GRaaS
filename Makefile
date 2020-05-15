@@ -32,7 +32,7 @@ build:
 	rm -rf .build/tmp/ && cp $(LAMBDA_DIRECTORY)/fetcher/ -r .build/tmp/
 	cd .build/tmp/ && pip install -r requirements.txt -t . && zip -r ../lambdas/fetcher.zip .
 
-	rm -rf .build/tmp/ && cp $(LAMBDA_DIRECTORY)/scheduler/weekly/ -r .build/tmp/
+	rm -rf .build/tmp/ && cp $(LAMBDA_DIRECTORY)/schedulers/weekly/ -r .build/tmp/
 	cd .build/tmp/ && pip install -r requirements.txt -t . && zip -r ../lambdas/weekly_scheduler.zip .
 
 	rm -rf .build/tmp/
