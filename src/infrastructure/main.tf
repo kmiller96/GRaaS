@@ -88,7 +88,7 @@ resource "aws_iam_role_policy_attachment" "formatter_lambda_s3_god_mode" {
 ####################
 
 resource "aws_s3_bucket" "goal_storage" {
-  bucket = "${var.resource_prefix}-${var.goal_bucket_name}"
+  bucket = var.goal_bucket_name
 }
 
 
