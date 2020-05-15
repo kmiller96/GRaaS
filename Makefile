@@ -19,13 +19,15 @@ format:
 build:
 	# Compiles all of the source code into artifacts for AWS.
 	## TODO: Convert this from being a hardcoded process to an abstract utility.
-	cp $(LAMBDA_DIRECTORY)/messager/ -r .build/tmp/
+	rm -rf .build/tmp/ && cp $(LAMBDA_DIRECTORY)/messager/ -r .build/tmp/
 	cd .build/tmp/ && pip install -r requirements.txt -t . && zip -r ../lambdas/messager.zip .
-	rm -rf .build/tmp/
 
+	rm -rf .build/tmp/ && cp $(LAMBDA_DIRECTORY)/formatter/ -r .build/tmp/
 	cp $(LAMBDA_DIRECTORY)/formatter/ -r .build/tmp/
 	cd .build/tmp/ && pip install -r requirements.txt -t . && zip -r ../lambdas/formatter.zip .
-	rm -rf .build/tmp/
+
+	rm -rf .build/tmp/ && cp $(LAMBDA_DIRECTORY)/fetcher/ -r .build/tmp/
+	cd .build/tmp/ && pip install -r requirements.txt -t . && zip -r ../lambdas/fetcher.zip .
 
 infrastructure:
 	# Deploys the infrastructure in AWS.
