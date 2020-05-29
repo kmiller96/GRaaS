@@ -7,22 +7,30 @@ basis to make sure you know what you should be doing with your life.
 In the current version, you are only able to update your specific goals. The
 delivery timing, delivery cadence, and delivery medium are all fixed.
 
-You can change your goals by defining a JSON file of the following structure:
+Start by tweaking the variables in `config/terraform.tfvars.json`. You **must**
+change the `goal_bucket_name` as these are unique across all of AWS. Feel free
+to change some fo the other parameters too.
+
+If you'd like to change your goals prior to deploying the application, tweak
+the contents of `config/goals.json`. To change your goals after deployment,
+you can defining a JSON file of the following structure:
 
 ```json
 {
     "weekly": [
         "goal1",
-        "goal2"
+        "goal2",
+        ...
     ],
     "monthly": [
         "goal1",
-        "goal2"
+        "goal2",
+        ...
     ]
 }
 ```
 
-and running the command:
+and run the command:
 
 ```bash
 graas update <fpath>
