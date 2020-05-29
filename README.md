@@ -3,9 +3,30 @@
 Get reminded about your goals the easy way! Get them sent to you on a regular
 basis to make sure you know what you should be doing with your life.
 
-
 ## Usage
-TODO
+In the current version, you are only able to update your specific goals. The
+delivery timing, delivery cadence, and delivery medium are all fixed.
+
+You can change your goals by defining a JSON file of the following structure:
+
+```json
+{
+    "weekly": [
+        "goal1",
+        "goal2"
+    ],
+    "monthly": [
+        "goal1",
+        "goal2"
+    ]
+}
+```
+
+and running the command:
+
+```bash
+graas update <fpath>
+```
 
 
 ## Installation
