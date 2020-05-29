@@ -11,7 +11,7 @@ module "weekly_scheduler_lambda" {
 
   environment_variables = {
     STEP_FUNCTION_ARN = aws_sfn_state_machine.sfn.id
-    TEMPLATE_URI      = "s3://${var.goal_bucket_name}/graas/templates/weekly_update.template"
+    TEMPLATE_URI      = "s3://${module.weekly_goal.bucket}/${module.weekly_goal.key}"
     MOBILE_NUMBER     = var.mobile_number
   }
 }
