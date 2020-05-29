@@ -44,6 +44,12 @@ destroy:
 	terraform destroy $(TERRAFORM_DIRECTORY)
 
 
+cli:
+	pip install .
+deploy: init build infrastructure
+install: cli deploy
+
+
 tests:
 	# Runs the unit testing suite.
 	echo "This utility hasn't been written yet."
