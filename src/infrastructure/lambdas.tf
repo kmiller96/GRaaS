@@ -93,7 +93,8 @@ module "fetcher_lambda" {
   lambda_package_path = "${var.build_directory}/lambdas/fetcher.zip"
 
   environment_variables = {
-    GOAL_BUCKET = aws_s3_bucket.graas_storage.id
+    GOAL_OBJ_BUCKET = aws_s3_bucket.graas_storage.id
+    GOAL_OBJ_KEY = module.goals.key
   }
 }
 
