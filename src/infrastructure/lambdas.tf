@@ -85,10 +85,6 @@ resource "aws_iam_role_policy_attachment" "formatter_lambda_s3_god_mode" {
 ## Fetcher Lambda ##
 ####################
 
-resource "aws_s3_bucket" "goal_storage" {
-  bucket = var.goal_bucket_name
-}
-
 
 module "fetcher_lambda" {
   source = "./modules/lambda"
@@ -97,7 +93,7 @@ module "fetcher_lambda" {
   lambda_package_path = "${var.build_directory}/lambdas/fetcher.zip"
 
   environment_variables = {
-    GOAL_BUCKET = aws_s3_bucket.goal_storage.id
+    GOAL_BUCKET = aws_s3_bucket.graas_storage.id
   }
 }
 
