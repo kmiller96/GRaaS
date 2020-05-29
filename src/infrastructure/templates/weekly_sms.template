@@ -1,0 +1,4 @@
+Don't forget your {{ goal_type }} goals.
+
+{% for goal in goals %}{{ goal["name"] }}
+{% endfor %}

@@ -39,9 +39,19 @@ build:
 
 
 infrastructure:
-	terraform apply $(TERRAFORM_DIRECTORY)
+	terraform apply \
+		-var-file=config/terraform.tfvars.json \
+		$(TERRAFORM_DIRECTORY) 
 destroy:
-	terraform destroy $(TERRAFORM_DIRECTORY)
+	terraform destroy \
+		-var-file=config/terraform.tfvars.json \
+		$(TERRAFORM_DIRECTORY) 
+
+
+cli:
+	pip install .
+deploy: init build infrastructure
+install: cli deploy
 
 
 tests:

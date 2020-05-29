@@ -4,6 +4,11 @@ provider "aws" {
   profile                 = "default"
 }
 
+resource "aws_s3_bucket" "graas_storage" {
+  bucket = var.goal_bucket_name
+  force_destroy = true
+}
+
 resource "aws_iam_policy" "invoke_step_function" {
   name = "${var.resource_prefix}-invoke-sfn" # TODO: tighten up this policy.
 

@@ -11,7 +11,7 @@ module "weekly_scheduler_lambda" {
 
   environment_variables = {
     STEP_FUNCTION_ARN = aws_sfn_state_machine.sfn.id
-    TEMPLATE_URI      = "s3://${var.goal_bucket_name}/graas/templates/weekly_update.template"
+    TEMPLATE_URI      = "s3://${module.weekly_goal.bucket}/${module.weekly_goal.key}"
     MOBILE_NUMBER     = var.mobile_number
   }
 }
@@ -85,10 +85,6 @@ resource "aws_iam_role_policy_attachment" "formatter_lambda_s3_god_mode" {
 ## Fetcher Lambda ##
 ####################
 
-resource "aws_s3_bucket" "goal_storage" {
-  bucket = var.goal_bucket_name
-}
-
 
 module "fetcher_lambda" {
   source = "./modules/lambda"
@@ -97,7 +93,8 @@ module "fetcher_lambda" {
   lambda_package_path = "${var.build_directory}/lambdas/fetcher.zip"
 
   environment_variables = {
-    GOAL_BUCKET = aws_s3_bucket.goal_storage.id
+    GOAL_OBJ_BUCKET = aws_s3_bucket.graas_storage.id
+    GOAL_OBJ_KEY = module.goals.key
   }
 }
 
